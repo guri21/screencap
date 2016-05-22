@@ -10,7 +10,7 @@ module Screencap
         output: path
       }.merge(args).collect {|k,v| "#{k}=#{v}"}
       puts RASTERIZE.to_s, params if(args[:debug])
-      result = Phantomjs.run(RASTERIZE.to_s, *params)
+      result = Phantomjs.run("--ignore-ssl-errors=true", RASTERIZE.to_s, *params)
       puts result if(args[:debug])
       raise Screencap::Error, "Could not load URL #{url}" if result.match /Unable to load/
     end
